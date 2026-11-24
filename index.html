@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Revisão PMPI 2026 - Flashcards Reta Final</title>
+  <title>Flashcards PMPI 2026 - Reta Final</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
@@ -20,7 +20,7 @@
     <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
       <div>
         <h1 class="text-xl font-bold text-emerald-400">PMPI 2026 • Flashcards Reta Final</h1>
-        <p class="text-xs text-slate-400">Revisão Rápida • Prova em 06/12</p>
+        <p class="text-xs text-slate-400">Revisão Direcionada por Tópico • Prova em 06/12</p>
       </div>
       <div class="flex items-center gap-3">
         <button onclick="toggleMode('all')" id="btn-mode-all" class="px-3 py-1 text-xs rounded bg-emerald-600 text-white font-semibold">Todos os Cards</button>
@@ -47,13 +47,28 @@
       </div>
     </section>
 
-    <!-- Filtro de Matéria -->
-    <div class="flex flex-col sm:flex-row gap-3">
-      <select id="subject-filter" onchange="filterCards()" class="bg-slate-800 border border-slate-700 text-slate-200 rounded-lg p-2.5 text-sm w-full">
-        <option value="ALL">Todas as Matérias</option>
-        <option value="Legislação PMPI">Legislação da PMPI</option>
-        <option value="Noções de Direito">Noções de Direito</option>
-      </select>
+    <!-- Filtro de Matéria e Subtópico/Lei -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div>
+        <label class="text-xs text-slate-400 mb-1 block">Matéria:</label>
+        <select id="subject-filter" onchange="onSubjectChange()" class="bg-slate-800 border border-slate-700 text-slate-200 rounded-lg p-2.5 text-sm w-full focus:ring-2 focus:ring-emerald-500">
+          <option value="ALL">Todas as Matérias</option>
+          <option value="Legislação PMPI">Legislação da PMPI</option>
+          <option value="Noções de Direito">Noções de Direito</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-xs text-slate-400 mb-1 block">Subtópico / Lei:</label>
+        <select id="topic-filter" onchange="filterCards()" class="bg-slate-800 border border-slate-700 text-slate-200 rounded-lg p-2.5 text-sm w-full focus:ring-2 focus:ring-emerald-500">
+          <option value="ALL">Todos os Tópicos</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Contador do Filtro Atual -->
+    <div class="text-xs text-slate-400 flex justify-between items-center px-1">
+      <span>Exibindo <strong id="filter-count" class="text-emerald-400">0</strong> cards selecionados</span>
+      <span id="card-index-indicator">Card 0 de 0</span>
     </div>
 
     <!-- Área do Flashcard -->
@@ -64,7 +79,7 @@
         <div class="absolute inset-0 bg-slate-800 border-2 border-slate-700 rounded-2xl p-6 flex flex-col justify-between backface-hidden">
           <div class="flex justify-between items-center text-xs text-emerald-400 font-bold uppercase tracking-wider">
             <span id="card-subject">Matéria</span>
-            <span id="card-topic">Tópico</span>
+            <span id="card-topic" class="truncate max-w-[200px] sm:max-w-none">Tópico</span>
           </div>
           <div class="text-center my-auto">
             <p id="card-question" class="text-lg sm:text-xl font-medium text-slate-100 leading-relaxed">Carregando flashcards...</p>
@@ -108,38 +123,73 @@
   </main>
 
   <script>
-    // BANCO DE DADOS DE EXEMPLO (EXPANDÍVEL ATÉ 1.000 CARDS)
+    // LISTA DE FLASHCARDS ORGANIZADA POR SUBTÓPICOS DO EDITAL
     const rawCards = [
+      // --- LEGISLAÇÃO DA PMPI ---
       {
         id: 1,
         subject: "Legislação PMPI",
-        topic: "Constituição Estadual - Segurança Pública",
-        question: "A Segurança Pública no Estado do Piauí é exercida para a preservação da ordem pública, incolumidade das pessoas e patrimônio, sendo composta taxativamente por Polícia Civil, Polícia Militar, Corpo de Bombeiros Militar e Polícia Penal.",
-        answer: "CERTO. Art. 156 da CE-PI. A segurança pública é exercida pelos órgãos listados, incluindo a Polícia Penal inserida pela EC nº 56/2020.",
+        topic: "Estatuto PMPI (Lei nº 3.808/1981)",
+        question: "A praça da Polícia Militar do Piauí com estabilidade assegurada somente perderá o cargo mediante processo administrativo disciplinar ou sentença judicial transitada em julgado.",
+        answer: "CERTO. Nos termos do Estatuto dos Policiais Militares do Piauí (Lei nº 3.808/1981), a perda de praça com estabilidade exige devido processo legal com ampla defesa (Conselho de Disciplina) ou decisão judicial irrecorrível.",
         correctAnswer: true
       },
       {
         id: 2,
-        subject: "Noções de Direito",
-        topic: "Direito Penal - Peculato",
-        question: "O crime de peculato exige obrigatoriamente que o bem apropriado ou desviado pelo funcionário público seja de propriedade pública.",
-        answer: "ERRADO. Art. 312 do Código Penal. O bem pode ser público OU particular, desde que o funcionário público tenha a posse em razão do cargo.",
+        subject: "Legislação PMPI",
+        topic: "Código de Ética (Lei nº 7.725/2022)",
+        question: "O Código de Ética e Disciplina dos Militares do Piauí autoriza a aplicação da pena disciplinar de prisão em regime fechado para transgressões classificadas como graves.",
+        answer: "ERRADO. A Lei nº 7.725/2022 veda a aplicação de sanções disciplinares privativas ou restritivas de liberdade, alinhando-se à legislação federal recente e às garantias constitucionais.",
         correctAnswer: false
       },
       {
         id: 3,
-        subject: "Noções de Direito",
-        topic: "Direito Constitucional - Segurança Pública",
-        question: "Segundo a CF/88, as Polícias Militares e os Corpos de Bombeiros Militares são forças auxiliares e reserva do Exército.",
-        answer: "CERTO. Art. 144, § 6º da CF/88. Subordinam-se aos Governadores dos Estados, do DF e dos Territórios.",
+        subject: "Legislação PMPI",
+        topic: "Lei Orgânica Nacional (Lei nº 14.751/2023)",
+        question: "A Lei Orgânica Nacional das Polícias Militares estabelece como requisito de ingresso na carreira de Praça o nível superior de escolaridade.",
+        answer: "CERTO. A Lei Federal nº 14.751/2023 fixou o nível superior como padrão nacional para praças e bacharelado em Direito para oficiais, observadas as regras de transição dos Estados.",
         correctAnswer: true
       },
       {
         id: 4,
+        subject: "Legislação PMPI",
+        topic: "Lei de Promoção de Praças (LC nº 68/2006)",
+        question: "As promoções de praças da PMPI ocorrem exclusivamente pelo critério de antiguidade.",
+        answer: "ERRADO. Conforme a LC nº 68/2006, as promoções ocorrem por critérios variados, incluindo antiguidade, merecimento, bravura e post mortem.",
+        correctAnswer: false
+      },
+
+      // --- NOÇÕES DE DIREITO ---
+      {
+        id: 5,
         subject: "Noções de Direito",
-        topic: "Legislação Especial - Lei Maria da Penha",
-        question: "A Lei Maria da Penha (Lei nº 11.340/2006) possui natureza jurídica exclusivamente processual penal.",
-        answer: "ERRADO. Possui natureza jurídica HÍBRIDA (ou mista), pois traz normas materiais, processuais e de assistência social.",
+        topic: "Constituição do Estado do Piauí",
+        question: "Segundo a Constituição do Estado do Piauí, a remuneração dos integrantes da Polícia Militar é fixada obrigatoriamente na forma de subsídio em parcela única.",
+        answer: "CERTO. A Constituição do Estado do Piauí (art. 156) determina que a remuneração dos policiais militares seja estruturada sob a forma de subsídio em parcela única, vedado o acréscimo de gratificações genéricas.",
+        correctAnswer: true
+      },
+      {
+        id: 6,
+        subject: "Noções de Direito",
+        topic: "Direito Penal - Crimes contra a Adm. Pública",
+        question: "O crime de peculato-desvio configura-se quando o funcionário público, não tendo a posse do bem, o subtrai valendo-se da facilidade que lhe proporciona a qualidade de funcionário.",
+        answer: "ERRADO. Subtrair o bem sem ter a posse prévia configura peculato-furto (art. 312, § 1º, CP). O peculato-desvio exige que o agente tenha a posse prévia e empregue o bem em destinação diversa do interesse público.",
+        correctAnswer: false
+      },
+      {
+        id: 7,
+        subject: "Noções de Direito",
+        topic: "Legislação Especial - Abuso de Autoridade (Lei nº 13.869/2019)",
+        question: "A divergência na interpretação de lei ou na avaliação de fatos e provas não configura abuso de autoridade.",
+        answer: "CERTO. O art. 1º, § 2º da Lei nº 13.869/2019 afasta o chamado 'crime de hermenêutica', exigindo demonstração de dolo específico para a caracterização do abuso de autoridade.",
+        correctAnswer: true
+      },
+      {
+        id: 8,
+        subject: "Noções de Direito",
+        topic: "Legislação Especial - Lei Maria da Penha (Lei nº 11.340/2006)",
+        question: "Na aplicação da Lei Maria da Penha, é permitida a aplicação de penas de prestação pecuniária ou substituição por cestas básicas.",
+        answer: "ERRADO. O art. 17 da Lei nº 11.340/2006 veda expressamente a aplicação de penas de cesta básica ou outras prestações pecuniárias.",
         correctAnswer: false
       }
     ];
@@ -147,22 +197,49 @@
     let currentCards = [...rawCards];
     let currentIndex = 0;
     let isFlipped = false;
-    let mode = 'all'; // 'all' ou 'errors'
-    
-    // Estado salvo no LocalStorage
+    let mode = 'all';
+
     let stats = JSON.parse(localStorage.getItem('pmpi_stats')) || {
       correct: 0,
       wrong: 0,
-      history: {}, // cardId: true/false
-      errors: [] // array de cardIds
+      history: {},
+      errors: []
     };
 
     let chartInstance = null;
 
     function init() {
+      populateSubjectDropdown();
+      onSubjectChange();
       updateStatsUI();
-      filterCards();
       renderChart();
+    }
+
+    function populateSubjectDropdown() {
+      const subjectSelect = document.getElementById('subject-filter');
+      const subjects = [...new Set(rawCards.map(c => c.subject))];
+      subjectSelect.innerHTML = '<option value="ALL">Todas as Matérias</option>';
+      subjects.forEach(sub => {
+        subjectSelect.innerHTML += `<option value="${sub}">${sub}</option>`;
+      });
+    }
+
+    function onSubjectChange() {
+      const selectedSubject = document.getElementById('subject-filter').value;
+      const topicSelect = document.getElementById('topic-filter');
+
+      let filteredForTopics = rawCards;
+      if (selectedSubject !== 'ALL') {
+        filteredForTopics = rawCards.filter(c => c.subject === selectedSubject);
+      }
+
+      const topics = [...new Set(filteredForTopics.map(c => c.topic))];
+      topicSelect.innerHTML = '<option value="ALL">Todos os Tópicos</option>';
+      topics.forEach(top => {
+        topicSelect.innerHTML += `<option value="${top}">${top}</option>`;
+      });
+
+      filterCards();
     }
 
     function toggleMode(newMode) {
@@ -174,10 +251,15 @@
 
     function filterCards() {
       const subject = document.getElementById('subject-filter').value;
+      const topic = document.getElementById('topic-filter').value;
       let list = rawCards;
 
       if (subject !== 'ALL') {
         list = list.filter(c => c.subject === subject);
+      }
+
+      if (topic !== 'ALL') {
+        list = list.filter(c => c.topic === topic);
       }
 
       if (mode === 'errors') {
@@ -186,6 +268,8 @@
 
       currentCards = list;
       currentIndex = 0;
+      
+      document.getElementById('filter-count').innerText = currentCards.length;
       showCard();
     }
 
@@ -194,9 +278,10 @@
       document.getElementById('card-inner').classList.remove('rotate-y-180');
 
       if (currentCards.length === 0) {
-        document.getElementById('card-question').innerText = mode === 'errors' ? "Nenhum card com erro encontrado! Parabéns!" : "Nenhum card disponível nesta categoria.";
+        document.getElementById('card-question').innerText = mode === 'errors' ? "Nenhum card com erro nesta seleção." : "Nenhum flashcard disponível para este filtro.";
         document.getElementById('card-subject').innerText = "-";
         document.getElementById('card-topic').innerText = "-";
+        document.getElementById('card-index-indicator').innerText = "Card 0 de 0";
         return;
       }
 
@@ -207,6 +292,7 @@
       document.getElementById('card-answer').innerText = card.answer;
       document.getElementById('card-gabarito').innerText = card.correctAnswer ? "GABARITO: CERTO" : "GABARITO: ERRADO";
       document.getElementById('card-gabarito').className = card.correctAnswer ? "px-2 py-0.5 rounded text-white bg-emerald-600" : "px-2 py-0.5 rounded text-white bg-rose-600";
+      document.getElementById('card-index-indicator').innerText = `Card ${currentIndex + 1} de ${currentCards.length}`;
     }
 
     function flipCard() {
@@ -234,7 +320,6 @@
       updateStatsUI();
       renderChart();
 
-      // Próximo Card
       currentIndex = (currentIndex + 1) % currentCards.length;
       showCard();
     }
@@ -264,9 +349,8 @@
 
     function renderChart() {
       const ctx = document.getElementById('performanceChart').getContext('2d');
-      
-      // Calcular % por matéria
       const subjects = ["Legislação PMPI", "Noções de Direito"];
+      
       const dataPct = subjects.map(sub => {
         const subCards = rawCards.filter(c => c.subject === sub);
         let correctCount = 0;
