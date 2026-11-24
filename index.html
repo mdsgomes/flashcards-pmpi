@@ -20,7 +20,7 @@
     <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
       <div>
         <h1 class="text-xl font-bold text-emerald-400">PMPI 2026 • Flashcards Reta Final</h1>
-        <p class="text-xs text-slate-400">Revisão Direcionada por Tópico • Prova em 06/12</p>
+        <p class="text-xs text-slate-400">Revisão por Matéria e Lei • Prova em 06/12</p>
       </div>
       <div class="flex items-center gap-3">
         <button onclick="toggleMode('all')" id="btn-mode-all" class="px-3 py-1 text-xs rounded bg-emerald-600 text-white font-semibold">Todos os Cards</button>
@@ -53,8 +53,6 @@
         <label class="text-xs text-slate-400 mb-1 block">Matéria:</label>
         <select id="subject-filter" onchange="onSubjectChange()" class="bg-slate-800 border border-slate-700 text-slate-200 rounded-lg p-2.5 text-sm w-full focus:ring-2 focus:ring-emerald-500">
           <option value="ALL">Todas as Matérias</option>
-          <option value="Legislação PMPI">Legislação da PMPI</option>
-          <option value="Noções de Direito">Noções de Direito</option>
         </select>
       </div>
       <div>
@@ -123,73 +121,249 @@
   </main>
 
   <script>
-    // LISTA DE FLASHCARDS ORGANIZADA POR SUBTÓPICOS DO EDITAL
+    // BASE DE DADOS DE FLASHCARDS COMPLETA (DIVIDIDA POR MATÉRIA E SUBTÓPICOS)
     const rawCards = [
-      // --- LEGISLAÇÃO DA PMPI ---
+      // ==========================================
+      // LEGISLAÇÃO DA PMPI
+      // ==========================================
       {
-        id: 1,
+        id: 101,
         subject: "Legislação PMPI",
         topic: "Estatuto PMPI (Lei nº 3.808/1981)",
-        question: "A praça da Polícia Militar do Piauí com estabilidade assegurada somente perderá o cargo mediante processo administrativo disciplinar ou sentença judicial transitada em julgado.",
-        answer: "CERTO. Nos termos do Estatuto dos Policiais Militares do Piauí (Lei nº 3.808/1981), a perda de praça com estabilidade exige devido processo legal com ampla defesa (Conselho de Disciplina) ou decisão judicial irrecorrível.",
+        question: "A praça da PMPI com estabilidade assegurada somente perderá o cargo ou graduação por decisão judicial transitada em julgado ou por processo disciplinar (Conselho de Disciplina).",
+        answer: "CERTO. Nos termos do Estatuto dos Policiais Militares do Estado do Piauí (Lei nº 3.808/1981), a praça estabilizada possui garantia funcional de demissão/exclusão apenas mediante devido processo legal.",
         correctAnswer: true
       },
       {
-        id: 2,
+        id: 102,
+        subject: "Legislação PMPI",
+        topic: "Estatuto PMPI (Lei nº 3.808/1981)",
+        question: "A hierarquia militar e a disciplina são os pilares básicos da Polícia Militar do Estado do Piauí, sendo a hierarquia a ordenação da autoridade em diferentes níveis.",
+        answer: "CERTO. A hierarquia e a disciplina constituem a base institucional de todas as forças militares estaduais e federais conforme estabelece o Estatuto da PMPI e a CF/88.",
+        correctAnswer: true
+      },
+      {
+        id: 103,
         subject: "Legislação PMPI",
         topic: "Código de Ética (Lei nº 7.725/2022)",
-        question: "O Código de Ética e Disciplina dos Militares do Piauí autoriza a aplicação da pena disciplinar de prisão em regime fechado para transgressões classificadas como graves.",
-        answer: "ERRADO. A Lei nº 7.725/2022 veda a aplicação de sanções disciplinares privativas ou restritivas de liberdade, alinhando-se à legislação federal recente e às garantias constitucionais.",
+        question: "O Código de Ética e Disciplina dos Militares do Piauí (Lei Estadual nº 7.725/2022) prevê a pena de prisão disciplinar em regime fechado para transgressões consideradas de natureza grave.",
+        answer: "ERRADO. A Lei nº 7.725/2022 aboliu a sanção disciplinar de prisão e detenção disciplinar para os militares estaduais do Piauí, em consonância com a Lei Federal nº 13.967/2019.",
         correctAnswer: false
       },
       {
-        id: 3,
+        id: 104,
         subject: "Legislação PMPI",
-        topic: "Lei Orgânica Nacional (Lei nº 14.751/2023)",
-        question: "A Lei Orgânica Nacional das Polícias Militares estabelece como requisito de ingresso na carreira de Praça o nível superior de escolaridade.",
-        answer: "CERTO. A Lei Federal nº 14.751/2023 fixou o nível superior como padrão nacional para praças e bacharelado em Direito para oficiais, observadas as regras de transição dos Estados.",
+        topic: "Código de Ética (Lei nº 7.725/2022)",
+        question: "Constitui dever ético do militar do Piauí atuar de forma imparcial, respeitando os direitos e garantias fundamentais do cidadão no exercício de suas atribuições.",
+        answer: "CERTO. A Lei Estadual nº 7.725/2022 coloca como pilar o respeito incondicional aos direitos humanos e primado da cidadania na conduta diária da tropa.",
         correctAnswer: true
       },
       {
-        id: 4,
+        id: 105,
+        subject: "Legislação PMPI",
+        topic: "Lei Orgânica Nacional (Lei nº 14.751/2023)",
+        question: "A Lei Orgânica Nacional das Polícias Militares (Lei Federal nº 14.751/2023) estabelece obrigatoriamente como requisito de ingresso no cargo de Praça o nível superior de escolaridade.",
+        answer: "CERTO. A Lei nº 14.751/2023 uniformizou nacionalmente a exigência de nível superior completo para ingresso na carreira de Praça policial militar.",
+        correctAnswer: true
+      },
+      {
+        id: 106,
         subject: "Legislação PMPI",
         topic: "Lei de Promoção de Praças (LC nº 68/2006)",
-        question: "As promoções de praças da PMPI ocorrem exclusivamente pelo critério de antiguidade.",
-        answer: "ERRADO. Conforme a LC nº 68/2006, as promoções ocorrem por critérios variados, incluindo antiguidade, merecimento, bravura e post mortem.",
+        question: "A promoção por bravura independe da vaga existente no quadro fixado da corporação, e a praça promovida ocupará a primeira vaga que surgir.",
+        answer: "CERTO. Conforme o regramento de promoções militares (LC nº 68/2006 e Regulamento Dec. 12.422/2006), a promoção por bravura opera efeito imediato e fica como excedente até a abertura da primeira vaga no quadro.",
+        correctAnswer: true
+      },
+      {
+        id: 107,
+        subject: "Legislação PMPI",
+        topic: "Reorganização das PMs (Decreto-Lei 667/1969 e alterações)",
+        question: "As Polícias Militares são consideradas forças auxiliares e reserva do Exército Brasileiro, subordinadas operacionalmente aos Governadores dos Estados e DF.",
+        answer: "CERTO. Conforme o Decreto-Lei Federal nº 667/1969 e art. 144, § 6º da CF/88, as PMs são forças auxiliares e reserva do Exército sob comando dos Governadores.",
+        correctAnswer: true
+      },
+      {
+        id: 108,
+        subject: "Legislação PMPI",
+        topic: "Código de Vencimentos (Lei nº 5.378/2004)",
+        question: "A remuneração dos policiais militares do Piauí é composta pelo soldo e gratificações fixas, sendo o soldo irredutível e inalienável.",
+        answer: "CERTO. A Lei nº 5.378/2004 disciplina a estrutura remuneratória e prevê as garantias de impenhorabilidade do soldo militar e regras de vencimento.",
+        correctAnswer: true
+      },
+
+      // ==========================================
+      // NOÇÕES DE DIREITO - CONSTITUCIONAL E CE-PI
+      // ==========================================
+      {
+        id: 201,
+        subject: "Noções de Direito",
+        topic: "Direito Constitucional - Direitos Individuais/Coletivos",
+        question: "É livre a manifestação do pensamento, sendo garantido o anonimato nas denúncias de crimes e irregularidades.",
+        answer: "ERRADO. O art. 5º, IV da CF/88 estabelece que é livre a manifestação do pensamento, sendo VEDADO o anonimato.",
+        correctAnswer: false
+      },
+      {
+        id: 202,
+        subject: "Noções de Direito",
+        topic: "Direito Constitucional - Direitos Individuais/Coletivos",
+        question: "A casa é asilo inviolável do indivíduo, ninguém nela podendo penetrar sem consentimento do morador, salvo em caso de flagrante delito, desastre, para prestar socorro, ou durante o dia por determinação judicial.",
+        answer: "CERTO. Art. 5º, XI da CF/88. Exceções à inviolabilidade domiciliar: 1) Flagrante delito; 2) Desastre; 3) Prestar socorro (qualquer horário); 4) Mandado judicial (Apenas durante o dia).",
+        correctAnswer: true
+      },
+      {
+        id: 203,
+        subject: "Noções de Direito",
+        topic: "Direito Constitucional - Segurança Pública (Art. 144)",
+        question: "A Polícia Rodoviária Federal é órgão permanente, estruturado em carreira, destinado, na forma da lei, ao patrulhamento ostensivo das rodovias federais.",
+        answer: "CERTO. Art. 144, II e § 2º da Constituição Federal de 1988.",
+        correctAnswer: true
+      },
+      {
+        id: 204,
+        subject: "Noções de Direito",
+        topic: "Constituição Estadual do Piauí",
+        question: "A Polícia Militar e o Corpo de Bombeiros Militar do Piauí são instituições permanentes e regulares, organizadas com base na hierarquia e na disciplina.",
+        answer: "CERTO. Conforme o Art. 156 do Capítulo da Segurança Pública da Constituição do Estado do Piauí.",
+        correctAnswer: true
+      },
+      {
+        id: 205,
+        subject: "Noções de Direito",
+        topic: "Constituição Estadual do Piauí",
+        question: "Compete à Justiça Militar estadual processar e julgar os militares dos Estados nos crimes militares definidos em lei e as ações judiciais contra atos disciplinares militares.",
+        answer: "CERTO. Art. 125, § 4º da CF/88 e disposições da CE-PI relativas à Justiça Militar de Primeira e Segunda Instância.",
+        correctAnswer: true
+      },
+
+      // ==========================================
+      // NOÇÕES DE DIREITO - PENAL
+      // ==========================================
+      {
+        id: 301,
+        subject: "Noções de Direito",
+        topic: "Direito Penal - Aplicação da Lei Penal",
+        question: "O Código Penal brasileiro adota a Teoria do Resultado para determinar o tempo do crime e a Teoria da Atividade para determinar o lugar do crime.",
+        answer: "ERRADO. O Brasil adota a Teoria da ATIVIDADE para o tempo do crime (art. 4º, considera-se praticado no momento da ação/omissão) e a Teoria da UBIQUIDADE para o lugar do crime (art. 6º, lugar da ação/omissão ou onde se produziu/deveria produzir-se o resultado). Luta = Lugar Ubiquidade, Tempo Atividade.",
+        correctAnswer: false
+      },
+      {
+        id: 302,
+        subject: "Noções de Direito",
+        topic: "Direito Penal - Teoria do Crime e Ilicitude",
+        question: "São excludentes de ilicitude (ou antijuridicidade) expressas no Código Penal: estado de necessidade, legítima defesa, estrito cumprimento do dever legal e exercício regular de direito.",
+        answer: "CERTO. Conforme prevê o Art. 23 do Código Penal Brasileiro.",
+        correctAnswer: true
+      },
+      {
+        id: 303,
+        subject: "Noções de Direito",
+        topic: "Direito Penal - Crimes contra a Pessoa",
+        question: "No crime de homicídio qualificado praticado contra menor de 14 anos ou maior de 60 anos, a pena é aumentada de 1/3 até metade.",
+        answer: "CERTO. Conforme dispõe o art. 121, § 2º-B e § 7º do Código Penal.",
+        correctAnswer: true
+      },
+      {
+        id: 304,
+        subject: "Noções de Direito",
+        topic: "Direito Penal - Crimes contra o Patrimônio",
+        question: "O crime de roubo caracteriza-se pela subtração de coisa móvel alheia mediante emprego de violência ou grave ameaça à pessoa, consumando-se no momento da inversão da posse do bem, ainda que por breve espaço de tempo.",
+        answer: "CERTO. Súmula 582 do STJ (Teoria da Apprehensio ou Amotio). O roubo consuma-se com a inversão da posse, dispensando a posse mansa e pacífica.",
+        correctAnswer: true
+      },
+      {
+        id: 305,
+        subject: "Noções de Direito",
+        topic: "Direito Penal - Crimes contra a Administração Pública",
+        question: "O crime de concussão (art. 316) exige o emprego de violência ou grave ameaça física direta para que o funcionário público exija a vantagem indevida.",
+        answer: "ERRADO. Concussão consiste em EXIGIR vantagem indevida em razão da função, sem necessidade de violência física ou grave ameaça direta (a autoridade do cargo configura a exigência). Se houver violência/ameaça, configura-se extorsão ou outro tipo penal.",
+        correctAnswer: false
+      },
+      {
+        id: 306,
+        subject: "Noções de Direito",
+        topic: "Direito Penal - Stalking (Lei nº 14.132/2021)",
+        question: "O crime de perseguição (stalking) é de ação penal pública incondicionada.",
+        answer: "ERRADO. O art. 147-A, § 3º do Código Penal determina expressamente que o crime de perseguição somente se procede mediante REPRESENTAÇÃO da vítima (ação penal pública condicionada).",
         correctAnswer: false
       },
 
-      // --- NOÇÕES DE DIREITO ---
+      // ==========================================
+      // NOÇÕES DE DIREITO - LEGISLAÇÃO ESPECIAL
+      // ==========================================
       {
-        id: 5,
+        id: 401,
         subject: "Noções de Direito",
-        topic: "Constituição do Estado do Piauí",
-        question: "Segundo a Constituição do Estado do Piauí, a remuneração dos integrantes da Polícia Militar é fixada obrigatoriamente na forma de subsídio em parcela única.",
-        answer: "CERTO. A Constituição do Estado do Piauí (art. 156) determina que a remuneração dos policiais militares seja estruturada sob a forma de subsídio em parcela única, vedado o acréscimo de gratificações genéricas.",
+        topic: "Legislação Especial - Lei Maria da Penha (Lei nº 11.340/2006)",
+        question: "Nos crimes praticados com violência doméstica e familiar contra a mulher, é vedada a aplicação de penas de cesta básica ou outras de prestação pecuniária, bem como a substituição por pena que resulte em pagamento isolado de multa.",
+        answer: "CERTO. Art. 17 da Lei nº 11.340/2006 e Súmula 588 do STJ.",
         correctAnswer: true
       },
       {
-        id: 6,
+        id: 402,
         subject: "Noções de Direito",
-        topic: "Direito Penal - Crimes contra a Adm. Pública",
-        question: "O crime de peculato-desvio configura-se quando o funcionário público, não tendo a posse do bem, o subtrai valendo-se da facilidade que lhe proporciona a qualidade de funcionário.",
-        answer: "ERRADO. Subtrair o bem sem ter a posse prévia configura peculato-furto (art. 312, § 1º, CP). O peculato-desvio exige que o agente tenha a posse prévia e empregue o bem em destinação diversa do interesse público.",
+        topic: "Legislação Especial - Estatuto da Criança e Adolescente (Lei nº 8.069/1990)",
+        question: "Considera-se criança a pessoa de até doze anos de idade incompletos, e adolescente aquela entre doze e dezoito anos de idade.",
+        answer: "CERTO. Conforme prevê o Art. 2º do ECA.",
+        correctAnswer: true
+      },
+      {
+        id: 403,
+        subject: "Noções de Direito",
+        topic: "Legislação Especial - JECRIM (Lei nº 9.099/1995)",
+        question: "Consideram-se infrações penais de menor potencial ofensivo as contravenções penais e os crimes a que a lei comine pena máxima não superior a 2 (dois) anos, cumulada ou não com multa.",
+        answer: "CERTO. Art. 61 da Lei nº 9.099/1995.",
+        correctAnswer: true
+      },
+      {
+        id: 404,
+        subject: "Noções de Direito",
+        topic: "Legislação Especial - Abuso de Autoridade (Lei nº 13.869/2019)",
+        question: "A perda do cargo, função ou mandato eletivo e a inabilitação para o exercício de cargo público por 1 a 5 anos são efeitos automáticos da condenação por crime de abuso de autoridade.",
+        answer: "ERRADO. Art. 4º, parágrafo único da Lei nº 13.869/2019. Esses efeitos NÃO são automáticos, devendo ser declarados motivadamente na sentença e dependem de reincidência específica.",
         correctAnswer: false
       },
       {
-        id: 7,
+        id: 405,
         subject: "Noções de Direito",
-        topic: "Legislação Especial - Abuso de Autoridade (Lei nº 13.869/2019)",
-        question: "A divergência na interpretação de lei ou na avaliação de fatos e provas não configura abuso de autoridade.",
-        answer: "CERTO. O art. 1º, § 2º da Lei nº 13.869/2019 afasta o chamado 'crime de hermenêutica', exigindo demonstração de dolo específico para a caracterização do abuso de autoridade.",
+        topic: "Legislação Especial - Lei de Acesso à Informação (Lei nº 12.527/2011)",
+        question: "Na Lei de Acesso à Informação, a informação classificada como ultrassecreta pode ter prazo de segredo fixado em no máximo 25 anos.",
+        answer: "CERTO. Conforme art. 24, § 1º da Lei nº 12.527/2011: Reservada (5 anos), Secreta (15 anos) e Ultrassecreta (25 anos).",
+        correctAnswer: true
+      },
+
+      // ==========================================
+      // NOÇÕES DE DIREITO - ADMINISTRATIVO
+      // ==========================================
+      {
+        id: 501,
+        subject: "Noções de Direito",
+        topic: "Direito Administrativo - Princípios da Administração",
+        question: "Os princípios expressos da Administração Pública na Constituição Federal de 1988 são: Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência (LIMPE).",
+        answer: "CERTO. Art. 37, caput da Constituição Federal.",
         correctAnswer: true
       },
       {
-        id: 8,
+        id: 502,
         subject: "Noções de Direito",
-        topic: "Legislação Especial - Lei Maria da Penha (Lei nº 11.340/2006)",
-        question: "Na aplicação da Lei Maria da Penha, é permitida a aplicação de penas de prestação pecuniária ou substituição por cestas básicas.",
-        answer: "ERRADO. O art. 17 da Lei nº 11.340/2006 veda expressamente a aplicação de penas de cesta básica ou outras prestações pecuniárias.",
+        topic: "Direito Administrativo - Poderes Administrativos",
+        question: "O poder de polícia caracteriza-se pela faculdade de que dispõe a Administração Pública para condicionar e restringir o uso e gozo de bens, direitos e atividades individuais em prol do interesse público.",
+        answer: "CERTO. Conceito clássico de Poder de Polícia disposto no art. 78 do Código Tributário Nacional e ratificado pela doutrina administrativa.",
+        correctAnswer: true
+      },
+      {
+        id: 503,
+        subject: "Noções de Direito",
+        topic: "Direito Administrativo - Responsabilidade Civil do Estado",
+        question: "A responsabilidade civil do Estado por atos comissivos dos seus agentes públicos é subjetiva, exigindo da vítima a comprovação de dolo ou culpa do servidor.",
+        answer: "ERRADO. Art. 37, § 6º da CF/88. A responsabilidade civil do Estado por condutas comissivas de seus agentes é OBJETIVA (Teoria do Risco Administrativo), bastando comprovar a conduta, o dano e o nexo de causalidade.",
+        correctAnswer: false
+      },
+      {
+        id: 504,
+        subject: "Noções de Direito",
+        topic: "Direito Administrativo - Improbidade (Lei nº 8.429/1992)",
+        question: "Após as alterações da Lei nº 14.230/2021, os atos de improbidade administrativa exigem a comprovação de dolo genérico ou culpa grave.",
+        answer: "ERRADO. A reforma promovida pela Lei nº 14.230/2021 eliminou a modalidade culposa dos atos de improbidade administrativa e passou a exigir o DOLO ESPECÍFICO (vontade livre e consciente de alcançar o resultado ilícito).",
         correctAnswer: false
       }
     ];
@@ -349,7 +523,7 @@
 
     function renderChart() {
       const ctx = document.getElementById('performanceChart').getContext('2d');
-      const subjects = ["Legislação PMPI", "Noções de Direito"];
+      const subjects = [...new Set(rawCards.map(c => c.subject))];
       
       const dataPct = subjects.map(sub => {
         const subCards = rawCards.filter(c => c.subject === sub);
